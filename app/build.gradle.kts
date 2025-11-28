@@ -35,6 +35,9 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
+    buildFeatures {
+        viewBinding = true // Habilita View Binding
+    }
 }
 
 dependencies {
@@ -46,4 +49,15 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    //Coroutines
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.10.2")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2")
+//Retrofit
+    implementation("com.squareup.retrofit2:retrofit:3.0.0")
+//Gson converter json to model
+    implementation("com.squareup.retrofit2:converter-gson:3.0.0")
+//viewmodels
+    implementation("androidx.fragment:fragment-ktx:1.8.9")
+//RecyclerView
+    implementation("androidx.recyclerview:recyclerview:1.4.0")
 }
