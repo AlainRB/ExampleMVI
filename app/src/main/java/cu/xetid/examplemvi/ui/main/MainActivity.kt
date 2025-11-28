@@ -3,7 +3,6 @@ package cu.xetid.examplemvi.ui.main
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.activity.R
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -15,7 +14,6 @@ import cu.xetid.examplemvi.data.api.RestApiImpl
 import cu.xetid.examplemvi.data.api.RetrofitBuilder
 import cu.xetid.examplemvi.data.model.TodoTask
 import cu.xetid.examplemvi.databinding.ActivityMainBinding
-import cu.xetid.examplemvi.ui.main.intent.MainIntent
 import cu.xetid.examplemvi.ui.main.state.MainState
 import kotlinx.coroutines.launch
 
@@ -36,11 +34,11 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         enableEdgeToEdge()
-                ViewCompat.setOnApplyWindowInsetsListener(binding.main) { v, insets ->
-                    val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-                    v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-                    insets
-                }
+        ViewCompat.setOnApplyWindowInsetsListener(binding.main) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
 
         setupUI()
         setupClicks()
@@ -51,7 +49,8 @@ class MainActivity : AppCompatActivity() {
 
         binding.buttonTasks.setOnClickListener {
             lifecycleScope.launch {
-                mainActivityViewModel.userIntent.send(MainIntent.FetchTodoTasks)
+                //mainActivityViewModel.userIntent.send(MainIntent.FetchTodoTasks)
+                mainActivityViewModel.onFetchTodoTasks()
             }
         }
     }
