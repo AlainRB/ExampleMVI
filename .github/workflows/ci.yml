@@ -5,10 +5,10 @@ on:
     branches: [ "ci/cd" ]
   pull_request:
     branches: [ "ci/cd" ]
+
 jobs:
   build_and_test:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4 # Es buena práctica darle nombre al primer paso también
@@ -28,11 +28,11 @@ jobs:
 
       - name: Build App
         run: ./gradlew build
-  cretate_release:
+
+  create_release:
     name: Create Signed APK
     needs: build_and_test
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -46,7 +46,7 @@ jobs:
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v3
 
-          # 1. Decodifica el keystore desde el Secret y lo guarda en un archivo en el runner
+      # 1. Decodifica el keystore desde el Secret y lo guarda en un archivo en el runner
       - name: Decode Keystore
         id: decode_keystore
         uses: timheuer/base64-to-file@v1.2
@@ -62,15 +62,11 @@ jobs:
           SIGNING_KEY_PASSWORD: ${{ secrets.MY_KEY_PASSWORD }}
           SIGNING_STORE_PASSWORD: ${{ secrets.MY_KEYSTORE_PASSWORD }}
           # El path al archivo que decodificamos en el paso anterior
-          SIGNING_STORE_FILE: ${{ steps.decode_keystore.outputs.filePath }}
+          SIGNING_STORE_FILE: ${{ secrets.decode_keystore.outputs.filePath }}
 
-            # 3. Sube el APK generado como un artefacto
+      # 3. Sube el APK generado como un artefacto
       - name: Upload Release APK
         uses: actions/upload-artifact@v4
         with:
-         name: release-apk
-         path: ExampleMVI/app/build/outputs/apk/release/app-release-signed.apk
-
-
-
-
+          name: release-apk
+          path: ExampleMVI/app/build/outputs/apk/release/app-release-signed.apk
