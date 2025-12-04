@@ -56,7 +56,6 @@ jobs:
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
-        working-directory: ./ExampleMVI
         env:
           # Aquí está la magia: Gradle lee estas variables automáticamente
           SIGNING_KEY_ALIAS: ${{ secrets.MY_KEY_ALIAS }}
