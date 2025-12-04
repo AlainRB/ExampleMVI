@@ -26,6 +26,9 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            // Le decimos a la build 'release' que use la firma
+            signingConfig = signingConfigs.getByName("debug") // Usamos debug como base, pero las variables de entorno lo sobreescribirán
+
         }
     }
     compileOptions {
